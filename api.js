@@ -9,6 +9,7 @@ function remove(id) {
   delete toDoList[id];
 }
 function removeAll() {
+  //Doesn't seem to be setting the constant to empty in app js
   const toDoList = {};
 }
 function create(value, completed = false) {
@@ -17,7 +18,7 @@ function create(value, completed = false) {
 function updateValue(id, value) {
   toDoList[id].value = value;
 }
-function updateStatus(id, completed) {
+function toggleStatus(id) {
   toDoList[id].completed = !toDoList[id].completed;
 }
 function sortByCompleted() {
@@ -33,7 +34,9 @@ function selectAllCompleted() {
   });
   return objectFiltered;
 }
-function removeAllCompleted() {
+function hideAllCompleted() {
+  //acting as a delete not as a hide needs fixing
+  //New visible property added for fixing this
   const selected = selectAllCompleted();
   let keys = Object.keys(selected);
   keys.forEach((key) => remove(key));
@@ -49,15 +52,15 @@ function completedTasksCounter() {
   }, 0);
 }
 
-export default{
+export default {
   retrieve,
   remove,
   removeAll,
   create,
   updateValue,
-  updateStatus,
+  toggleStatus,
   sortByCompleted,
   selectAllCompleted,
-  removeAllCompleted,
+  hideAllCompleted,
   completedTasksCounter,
 };
