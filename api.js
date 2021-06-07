@@ -39,12 +39,12 @@ function selectAllCompleted() {
 }
 function hide(id) {
   toDoList[id].visible = !toDoList[id].visible;
-} //changes made and working
+}
 function hideAllCompleted() {
   const selected = selectAllCompleted();
   let keys = Object.keys(selected);
   keys.forEach((key) => hide(key));
-} //Implemented and working
+}
 
 function completedTasksCounter() {
   let entries = Object.entries(toDoList);
@@ -55,7 +55,7 @@ function completedTasksCounter() {
       return acc;
     }
   }, 0);
-} // Implemented need's approval
+}
 
 export default {
   retrieve,

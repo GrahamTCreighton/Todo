@@ -65,7 +65,6 @@ class App {
     };
     document.body.appendChild(clearAll);
 
-    //Counter implemented needs Amanda´s Approval
     let counter = document.createElement("div");
     counter.innerHTML =
       "FEEL GOOD! You have completed " +
