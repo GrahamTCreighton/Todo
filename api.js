@@ -9,15 +9,18 @@ function remove(id) {
   delete toDoList[id];
 }
 function removeAll() {
-  //Doesn't seem to be setting the constant to empty in app js
-  const toDoList = {};
+  for (const prop in toDoList) {
+    delete toDoList[prop];
+  }
 }
-function create(value, completed = false) {
-  toDoList[lastId++] = { value: value, completed: completed };
+function create(value, completed = false, visible = true) {
+  toDoList[lastId++] = { value: value, completed: completed, visible: visible };
 }
 function updateValue(id, value) {
   toDoList[id].value = value;
 }
+//Currently trying to update the value in the toDoList here not the one in the state.js
+
 function toggleStatus(id) {
   toDoList[id].completed = !toDoList[id].completed;
 }
@@ -34,13 +37,15 @@ function selectAllCompleted() {
   });
   return objectFiltered;
 }
+function hide(id) {
+  toDoList[id].visible = !toDoList[id].visible;
+} //changes made and working
 function hideAllCompleted() {
-  //acting as a delete not as a hide needs fixing
-  //New visible property added for fixing this
   const selected = selectAllCompleted();
   let keys = Object.keys(selected);
-  keys.forEach((key) => remove(key));
-}
+  keys.forEach((key) => hide(key));
+} //Implemented and working
+
 function completedTasksCounter() {
   let entries = Object.entries(toDoList);
   return entries.reduce((acc, entry) => {
@@ -50,7 +55,7 @@ function completedTasksCounter() {
       return acc;
     }
   }, 0);
-}
+} // Implemented need's approval
 
 export default {
   retrieve,

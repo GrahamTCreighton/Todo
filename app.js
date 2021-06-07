@@ -2,15 +2,15 @@ import api from "./api.js";
 
 class App {
   constructor() {
-    /*Trial for creating the input*/
-    let newtask = document.createElement("input");
-    document.body.appendChild(newtask);
+    let inputField = document.createElement("input");
+    document.body.appendChild(inputField);
     let createButton = document.createElement("button");
     createButton.innerHTML = "add new task";
     createButton.onclick = () => {
-      this.execute(api.create);
-    }; // ---> Here I want to activate the create function, use the text of the input field line 4 as the first parameter of the create function
-    //insert create function here
+      this.execute(() => {
+        api.create(inputField.value);
+      });
+    };
     document.body.appendChild(createButton);
 
     let list = document.createElement("ul");
@@ -39,12 +39,16 @@ class App {
       };
       task.appendChild(clearTask);
 
+      let updateField = document.createElement("input");
+      task.appendChild(updateField);
       let updateValue = document.createElement("button");
       updateValue.innerHTML = "update task";
       updateValue.onclick = () => {
-        this.execute(api.updateValue, value);
+        this.execute(() => {
+          api.updateValue(updateField.value);
+        });
       };
-      task.appendChild(updateValue);
+      task.appendChild(updateValue); //update field is written correctly but not changing value of id.
     });
 
     let hideAllCompleted = document.createElement("button");
@@ -60,6 +64,14 @@ class App {
       this.execute(api.removeAll);
     };
     document.body.appendChild(clearAll);
+
+    //Counter implemented needs Amanda´s Approval
+    let counter = document.createElement("div");
+    counter.innerHTML =
+      "FEEL GOOD! You have completed " +
+      JSON.stringify(api.completedTasksCounter()) +
+      " task/s";
+    document.body.appendChild(counter);
 
     this.currentstate = document.createElement("p");
     this.currentstate.innerHTML = JSON.stringify(api.retrieve());
