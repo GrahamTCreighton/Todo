@@ -19,6 +19,7 @@ class App {
     let toDoList = api.retrieve();
     Object.keys(toDoList).forEach((id) => {
       let task = document.createElement("li");
+      task.setAttribute("contenteditable", "true"); //contenteditable added, but deleting the whole line
       list.appendChild(task);
       task.innerHTML = toDoList[id].value;
 
@@ -39,16 +40,14 @@ class App {
       };
       task.appendChild(clearTask);
 
-      let updateField = document.createElement("input");
-      task.appendChild(updateField);
       let updateValue = document.createElement("button");
       updateValue.innerHTML = "update task";
       updateValue.onclick = () => {
         this.execute(() => {
-          api.updateValue(updateField.value);
+          api.updateValue(); //editable list element goes here!;
         });
       };
-      task.appendChild(updateValue); //update field is written correctly but not changing value of id.
+      task.appendChild(updateValue);
     });
 
     let hideAllCompleted = document.createElement("button");
