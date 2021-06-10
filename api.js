@@ -1,6 +1,6 @@
 import toDoList from "./state.js";
 
-let lastId = 0;
+let lastId = 0; // fix this bug set last id to last id
 
 function retrieve() {
   return toDoList;
