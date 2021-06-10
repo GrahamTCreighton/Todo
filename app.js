@@ -24,7 +24,6 @@ class App {
     let toDoList = api.retrieve();
     Object.keys(toDoList).forEach((id) => {
       let task = document.createElement("li");
-      task.setAttribute("contenteditable", "true"); //contenteditable added, but deleting the whole line
       list.appendChild(task);
       task.innerHTML = toDoList[id].value;
 
@@ -49,11 +48,20 @@ class App {
     task.appendChild(clearTask);
   }
   renderUpdateValueComponent(task, id) {
+    // I want this to change the field of the list to editable and get an accept or cancel button,
     let updateValue = document.createElement("button");
     updateValue.innerHTML = "update task";
     updateValue.onclick = () => {
       this.execute(() => {
-        api.updateValue(id, updateField.value);
+        //i want task from list to become editable, and to create two new buttons
+        let acceptChange = document.createElement("button");
+        acceptChange.innerHTML = "Accept";
+        acceptChange.onclick = () => {}; //here i want to accept the input in the editable field
+        let cancelChange = document.createElement("button");
+        cancelChange.innerHTML = "Cancel";
+        cancelChange.onclick = () => {}; //here i want to return to previous state with no changes
+        task.appendChild(acceptChange);
+        task.appendChild(cancelChange);
       });
     };
     task.appendChild(updateValue);
@@ -62,7 +70,7 @@ class App {
     this.renderClearTaskComponent(task, id);
     this.renderUpdateValueComponent(task, id);
   }
-  renderhideAllCompletedOptionsComponent() {
+  renderHideAllCompletedOptionsComponent() {
     let hideAllCompleted = document.createElement("button");
     hideAllCompleted.innerHTML = "hide completed";
     hideAllCompleted.onclick = () => {
@@ -70,7 +78,7 @@ class App {
     };
     document.body.appendChild(hideAllCompleted);
   }
-  renderclearAllOptionsComponent() {
+  renderClearAllOptionsComponent() {
     let clearAll = document.createElement("button");
     clearAll.innerHTML = "clear all";
     clearAll.onclick = () => {
@@ -79,8 +87,8 @@ class App {
     document.body.appendChild(clearAll);
   }
   renderListOptionsComponent() {
-    this.renderhideAllCompletedOptionsComponent();
-    this.renderclearAllOptionsComponent();
+    this.renderHideAllCompletedOptionsComponent();
+    this.renderClearAllOptionsComponent();
   }
   renderCounterComponent() {
     let counter = document.createElement("div");
@@ -97,7 +105,6 @@ class App {
     this.renderListComponent();
     this.renderListOptionsComponent();
     this.renderCounterComponent();
-
     this.currentstate = document.createElement("p");
     this.currentstate.innerHTML = JSON.stringify(api.retrieve());
     document.body.appendChild(this.currentstate);

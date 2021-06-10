@@ -1,6 +1,6 @@
 import toDoList from "./state.js";
 
-let lastId = 0; // fix this bug set last id to last id
+let lastId = Object.keys(toDoList).length;
 
 function retrieve() {
   return toDoList;
@@ -14,7 +14,8 @@ function removeAll() {
   }
 }
 function create(value, completed = false, visible = true) {
-  toDoList[lastId++] = { value: value, completed: completed, visible: visible };
+  lastId++;
+  toDoList[lastId] = { value: value, completed: completed, visible: visible };
 }
 function updateValue(id, value) {
   toDoList[id].value = value;
