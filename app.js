@@ -2,8 +2,15 @@ import api from "./api.js";
 
 class App {
   constructor() {
+    this.render();
+  }
+
+  render() {
+    document.body.innerHTML = "";
+
     let inputField = document.createElement("input");
     document.body.appendChild(inputField);
+
     let createButton = document.createElement("button");
     createButton.innerHTML = "add new task";
     createButton.onclick = () => {
@@ -44,7 +51,7 @@ class App {
       updateValue.innerHTML = "update task";
       updateValue.onclick = () => {
         this.execute(() => {
-          api.updateValue(); //editable list element goes here!;
+          api.updateValue(id, updateField.value);
         });
       };
       task.appendChild(updateValue);
@@ -74,9 +81,6 @@ class App {
     this.currentstate = document.createElement("p");
     this.currentstate.innerHTML = JSON.stringify(api.retrieve());
     document.body.appendChild(this.currentstate);
-  }
-  render() {
-    this.currentstate.innerHTML = JSON.stringify(api.retrieve());
   }
 
   execute(callback, id) {
