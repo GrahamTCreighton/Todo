@@ -50,10 +50,14 @@ class App {
   renderUpdateValueComponent(task, id) {
     // I want this to change the field of the list to editable and get an accept or cancel button,
     let updateValue = document.createElement("button");
+    updateValue.setAttribute("id", "valueButton"); //set atribute with id
     updateValue.innerHTML = "update task";
     updateValue.onclick = () => {
       this.execute(() => {
-        //i want task from list to become editable, and to create two new buttons
+        //remove updateValue button
+        let removeValueButton = document.getElementById("valueButton");
+        removeValueButton.remove();
+        //i want task from list to become editable, and buttons are created
         let acceptChange = document.createElement("button");
         acceptChange.innerHTML = "Accept";
         acceptChange.onclick = () => {}; //here i want to accept the input in the editable field
