@@ -47,26 +47,31 @@ class App {
     };
     task.appendChild(clearTask);
   }
-  renderUpdateValueComponent(task, id) {
+  renderUpdateValueComponent(task) {
     // I want this to change the field of the list to editable and get an accept or cancel button,
     let updateValue = document.createElement("button");
     updateValue.setAttribute("id", "valueButton"); //set atribute with id
     updateValue.innerHTML = "update task";
+    task.appendChild(updateValue);
     updateValue.onclick = () => {
-      this.execute(() => {
-        //remove updateValue button
-        let removeValueButton = document.getElementById("valueButton");
-        removeValueButton.remove();
-        //i want task from list to become editable, and buttons are created
-        let acceptChange = document.createElement("button");
-        acceptChange.innerHTML = "Accept";
-        acceptChange.onclick = () => {}; //here i want to accept the input in the editable field
-        let cancelChange = document.createElement("button");
-        cancelChange.innerHTML = "Cancel";
-        cancelChange.onclick = () => {}; //here i want to return to previous state with no changes
-        task.appendChild(acceptChange);
-        task.appendChild(cancelChange);
-      });
+      //remove updateValue button
+      let removeValueButton = document.getElementById("valueButton");
+      removeValueButton.remove();
+      //transform list into input field with the current text still in the box, currently working on how to add various elements to this.
+      task.replaceWith(
+        document.createElement("input"),
+        document.createElement("button")
+      );
+
+      //i want task from list to become editable, and buttons are created
+      let acceptChange = document.createElement("button");
+      acceptChange.innerHTML = "Accept";
+      acceptChange.onclick = () => {}; //here i want to accept the input in the editable field
+      let cancelChange = document.createElement("button");
+      cancelChange.innerHTML = "Cancel";
+      cancelChange.onclick = () => {}; //here i want to return to previous state with no changes
+      task.appendChild(acceptChange);
+      task.appendChild(cancelChange);
     };
     task.appendChild(updateValue);
   }
