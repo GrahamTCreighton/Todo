@@ -25,7 +25,9 @@ class App {
     Object.keys(toDoList).forEach((id) => {
       let task = document.createElement("li");
       list.appendChild(task);
-      task.innerHTML = toDoList[id].value;
+
+      
+      task.innerHTML = `<div class="content">${toDoList[id].value}</div>`;
 
       let box = document.createElement("input");
       box.setAttribute("type", "checkbox");
