@@ -61,7 +61,19 @@ class App {
       //i want task from list to become editable, and buttons are created
       let acceptChange = document.createElement("button");
       acceptChange.innerHTML = "Accept";
-      acceptChange.onclick = () => {}; //here i want to accept the input in the editable field
+
+
+      const textNode = task.querySelector( '.content' )
+      const taskText = textNode.innerText
+      const input = document.createElement( 'input' )
+      input.setAttribute( 'type', 'text' )
+      input.setAttribute( 'value', taskText )
+      task.removeChild( textNode )
+      task.prepend( input )
+
+      acceptChange.onclick = () => {
+
+      }; //here i want to accept the input in the editable field
       let cancelChange = document.createElement("button");
       cancelChange.innerHTML = "Cancel";
       cancelChange.onclick = () => {}; //here i want to return to previous state with no changes
