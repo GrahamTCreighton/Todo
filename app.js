@@ -50,19 +50,12 @@ class App {
   renderUpdateValueComponent(task) {
     // I want this to change the field of the list to editable and get an accept or cancel button,
     let updateValue = document.createElement("button");
-    updateValue.setAttribute("id", "valueButton"); //set atribute with id
     updateValue.innerHTML = "update task";
     task.appendChild(updateValue);
     updateValue.onclick = () => {
       //remove updateValue button
-      let removeValueButton = document.getElementById("valueButton");
-      removeValueButton.remove();
+      updateValue.remove();
       //transform list into input field with the current text still in the box, currently working on how to add various elements to this.
-      task.replaceWith(
-        document.createElement("input"),
-        document.createElement("button")
-      );
-
       //i want task from list to become editable, and buttons are created
       let acceptChange = document.createElement("button");
       acceptChange.innerHTML = "Accept";
@@ -128,3 +121,6 @@ let ourApp = new App();
 ourApp.render();
 // when we call a function of the api we call it through this execute, and this excute in the api will call another function called render
 //that will create the html.
+
+/*task.querySelectorAll("button")[1].remove();
+      Tom shows how query selector works*/
