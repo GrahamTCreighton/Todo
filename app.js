@@ -1,4 +1,5 @@
 import api from "./api.js";
+import toDoList from "./state.js";
 
 class App {
   constructor() {
@@ -25,62 +26,61 @@ class App {
     Object.keys(toDoList).forEach((id) => {
       let task = document.createElement("li");
       list.appendChild(task);
-
-      
-      task.innerHTML = `<div class="content">${toDoList[id].value}</div>`;
-
-      let box = document.createElement("input");
-      box.setAttribute("type", "checkbox");
-      if (toDoList[id].completed) {
-        box.setAttribute("checked", true);
+      if (toDoList[id].input === false) {
+        task.innerHTML = `<div class="content">${toDoList[id].value}</div>`;
+        let box = document.createElement("input");
+        box.setAttribute("type", "checkbox");
+        task.appendChild(box);
+        this.renderTaskOptionsComponent(task, id);
+        if (toDoList[id].completed) {
+          box.setAttribute("checked", true);
+        }
+        box.onclick = () => {
+          this.execute(api.toggleStatus, id);
+        };
+      } else {
+        const input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("value", toDoList[id].value);
+        task.prepend(input);
+        this.renderTaskOptionsComponent(task, id);
       }
-      box.onclick = () => {
-        this.execute(api.toggleStatus, id);
-      };
-      task.appendChild(box);
-      this.renderTaskOptionsComponent(task, id);
     });
   }
   renderClearTaskComponent(task, id) {
-    let clearTask = document.createElement("button");
-    clearTask.innerHTML = "clear";
-    clearTask.onclick = () => {
-      this.execute(api.remove, id);
-    };
-    task.appendChild(clearTask);
+    if (toDoList[id].input === false) {
+      let clearTask = document.createElement("button");
+      clearTask.innerHTML = "clear";
+      clearTask.onclick = () => {
+        this.execute(api.remove, id);
+      };
+      task.appendChild(clearTask);
+    }
   }
-  renderUpdateValueComponent(task) {
-    // I want this to change the field of the list to editable and get an accept or cancel button,
-    let updateValue = document.createElement("button");
-    updateValue.innerHTML = "update task";
-    task.appendChild(updateValue);
-    updateValue.onclick = () => {
-      //remove updateValue button
-      updateValue.remove();
-      //transform list into input field with the current text still in the box, currently working on how to add various elements to this.
-      //i want task from list to become editable, and buttons are created
-      let acceptChange = document.createElement("button");
-      acceptChange.innerHTML = "Accept";
-
-
-      const textNode = task.querySelector( '.content' )
-      const taskText = textNode.innerText
-      const input = document.createElement( 'input' )
-      input.setAttribute( 'type', 'text' )
-      input.setAttribute( 'value', taskText )
-      task.removeChild( textNode )
-      task.prepend( input )
-
-      acceptChange.onclick = () => {
-
-      }; //here i want to accept the input in the editable field
-      let cancelChange = document.createElement("button");
-      cancelChange.innerHTML = "Cancel";
-      cancelChange.onclick = () => {}; //here i want to return to previous state with no changes
-      task.appendChild(acceptChange);
-      task.appendChild(cancelChange);
-    };
-    task.appendChild(updateValue);
+  renderUpdateValueComponent(task, id) {
+    if (toDoList[id].input === false) {
+      let updateValue = document.createElement("button");
+      updateValue.innerHTML = "update task";
+      task.appendChild(updateValue);
+      updateValue.onclick = () => {
+        this.execute(api.toggleInput, id);
+      };
+    } else {
+      let acceptButton = document.createElement("button");
+      acceptButton.innerHTML = "accept";
+      acceptButton.onclick = () => {
+        this.execute(api.updateValue, id); // need to use the current input of the field to complete the updateValue
+        this.execute(api.toggleInput, id); //this returns the document to the previous state.
+      };
+      task.appendChild(acceptButton);
+      let cancelButton = document.createElement("button");
+      cancelButton.innerHTML = "cancel";
+      cancelButton.onclick = () => {
+        this.execute(api.toggleInput, id);
+        task.innerHTML = `<div class="content">${toDoList[id].value}</div>`;
+      };
+      task.appendChild(cancelButton);
+    }
   }
   renderTaskOptionsComponent(task, id) {
     this.renderClearTaskComponent(task, id);

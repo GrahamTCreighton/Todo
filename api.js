@@ -20,8 +20,9 @@ function create(value, completed = false, visible = true) {
 function updateValue(id, value) {
   toDoList[id].value = value;
 }
-//Currently trying to update the value in the toDoList here not the one in the state.js
-
+function toggleInput(id) {
+  toDoList[id].input = !toDoList[id].input;
+}
 function toggleStatus(id) {
   toDoList[id].completed = !toDoList[id].completed;
 }
@@ -69,4 +70,5 @@ export default {
   selectAllCompleted,
   hideAllCompleted,
   completedTasksCounter,
+  toggleInput,
 };
