@@ -69,8 +69,9 @@ class App {
       let acceptButton = document.createElement("button");
       acceptButton.innerHTML = "accept";
       acceptButton.onclick = () => {
-        this.execute(api.updateValue, id); // need to use the current input of the field to complete the updateValue
-        this.execute(api.toggleInput, id); //this returns the document to the previous state.
+        api.updateValue(id, task.querySelector("input[type=text]").value);
+        api.toggleInput(id);
+        this.render();
       };
       task.appendChild(acceptButton);
       let cancelButton = document.createElement("button");
@@ -135,6 +136,3 @@ let ourApp = new App();
 ourApp.render();
 // when we call a function of the api we call it through this execute, and this excute in the api will call another function called render
 //that will create the html.
-
-/*task.querySelectorAll("button")[1].remove();
-      Tom shows how query selector works*/
