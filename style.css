@@ -4,7 +4,7 @@ body {
   text-align: center;
 }
 ul {
-  display: hide;
+  list-style-type: none;
 }
 input {
   font-family: "Roboto Slab", serif;

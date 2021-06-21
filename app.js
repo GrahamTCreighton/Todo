@@ -91,7 +91,8 @@ class App {
     let hideAllCompleted = document.createElement("button");
     hideAllCompleted.innerHTML = "hide completed";
     hideAllCompleted.onclick = () => {
-      this.execute(api.hideAllCompleted);
+      api.hideAllCompleted();
+      this.render();
     };
     document.body.appendChild(hideAllCompleted);
   }
@@ -122,9 +123,9 @@ class App {
     this.renderListComponent();
     this.renderListOptionsComponent();
     this.renderCounterComponent();
-    //this.currentstate = document.createElement("p");
-    //this.currentstate.innerHTML = JSON.stringify(api.retrieve());
-    //document.body.appendChild(this.currentstate);
+    this.currentstate = document.createElement("p");
+    this.currentstate.innerHTML = JSON.stringify(api.retrieve());
+    document.body.appendChild(this.currentstate);
   }
 
   execute(callback, id) {
