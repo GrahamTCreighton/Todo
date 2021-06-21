@@ -13,9 +13,14 @@ function removeAll() {
     delete toDoList[prop];
   }
 }
-function create(value, completed = false, visible = true) {
+function create(value, completed = false, visible = true, input = false) {
   lastId++;
-  toDoList[lastId] = { value: value, completed: completed, visible: visible };
+  toDoList[lastId] = {
+    value: value,
+    completed: completed,
+    visible: visible,
+    input: input,
+  };
 }
 function updateValue(id, value) {
   toDoList[id].value = value;
