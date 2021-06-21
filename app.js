@@ -122,9 +122,9 @@ class App {
     this.renderListComponent();
     this.renderListOptionsComponent();
     this.renderCounterComponent();
-    this.currentstate = document.createElement("p");
-    this.currentstate.innerHTML = JSON.stringify(api.retrieve());
-    document.body.appendChild(this.currentstate);
+    //this.currentstate = document.createElement("p");
+    //this.currentstate.innerHTML = JSON.stringify(api.retrieve());
+    //document.body.appendChild(this.currentstate);
   }
 
   execute(callback, id) {

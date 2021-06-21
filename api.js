@@ -63,7 +63,6 @@ function completedTasksCounter() {
     }
   }, 0);
 }
-
 export default {
   retrieve,
   remove,
