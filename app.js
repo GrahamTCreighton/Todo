@@ -24,6 +24,7 @@ class App {
 
     let toDoList = api.retrieve();
     Object.keys(toDoList).forEach((id) => {
+    if (toDoList[id].visible){
       let task = document.createElement("li");
       list.appendChild(task);
       if (toDoList[id].input === false) {
@@ -45,7 +46,7 @@ class App {
         task.prepend(input);
         this.renderTaskOptionsComponent(task, id);
       }
-    });
+    }});
   }
   renderClearTaskComponent(task, id) {
     if (toDoList[id].input === false) {
@@ -91,6 +92,7 @@ class App {
     let hideAllCompleted = document.createElement("button");
     hideAllCompleted.innerHTML = "hide completed";
     hideAllCompleted.onclick = () => {
+      hideAllCompleted.innerHTML = "show completed"
       api.hideAllCompleted();
       this.render();
     };

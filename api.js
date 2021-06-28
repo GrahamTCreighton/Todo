@@ -45,7 +45,7 @@ function selectAllCompleted() {
   return objectFiltered;
 }
 function hide(id) {
-  toDoList[id].visible = !toDoList[id].visible;
+  toDoList[id].visible = !toDoList[id].completed;
 }
 function hideAllCompleted() {
   const selected = selectAllCompleted();
