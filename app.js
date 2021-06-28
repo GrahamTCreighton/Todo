@@ -24,29 +24,30 @@ class App {
 
     let toDoList = api.retrieve();
     Object.keys(toDoList).forEach((id) => {
-    if (toDoList[id].visible){
-      let task = document.createElement("li");
-      list.appendChild(task);
-      if (toDoList[id].input === false) {
-        task.innerHTML = `<div class="content">${toDoList[id].value}</div>`;
-        let box = document.createElement("input");
-        box.setAttribute("type", "checkbox");
-        task.appendChild(box);
-        this.renderTaskOptionsComponent(task, id);
-        if (toDoList[id].completed) {
-          box.setAttribute("checked", true);
+      if (toDoList[id].visible) {
+        let task = document.createElement("li");
+        list.appendChild(task);
+        if (toDoList[id].input === false) {
+          task.innerHTML = `<div class="content">${toDoList[id].value}</div>`;
+          let box = document.createElement("input");
+          box.setAttribute("type", "checkbox");
+          task.appendChild(box);
+          this.renderTaskOptionsComponent(task, id);
+          if (toDoList[id].completed) {
+            box.setAttribute("checked", true);
+          }
+          box.onclick = () => {
+            this.execute(api.toggleStatus, id);
+          };
+        } else {
+          const input = document.createElement("input");
+          input.setAttribute("type", "text");
+          input.setAttribute("value", toDoList[id].value);
+          task.prepend(input);
+          this.renderTaskOptionsComponent(task, id);
         }
-        box.onclick = () => {
-          this.execute(api.toggleStatus, id);
-        };
-      } else {
-        const input = document.createElement("input");
-        input.setAttribute("type", "text");
-        input.setAttribute("value", toDoList[id].value);
-        task.prepend(input);
-        this.renderTaskOptionsComponent(task, id);
       }
-    }});
+    });
   }
   renderClearTaskComponent(task, id) {
     if (toDoList[id].input === false) {
@@ -92,7 +93,7 @@ class App {
     let hideAllCompleted = document.createElement("button");
     hideAllCompleted.innerHTML = "hide completed";
     hideAllCompleted.onclick = () => {
-      hideAllCompleted.innerHTML = "show completed"
+      hideAllCompleted.innerHTML = "show completed";
       api.hideAllCompleted();
       this.render();
     };

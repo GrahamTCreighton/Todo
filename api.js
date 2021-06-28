@@ -45,7 +45,19 @@ function selectAllCompleted() {
   return objectFiltered;
 }
 function hide(id) {
-  toDoList[id].visible = !toDoList[id].completed;
+  if (toDoList[id].visible === true && toDoList[id].completed === true) {
+    toDoList[id].visible = !toDoList[id].completed;
+  } else if (
+    toDoList[id].visible === false &&
+    toDoList[id].completed === false
+  ) {
+    toDoList[id].visible = !toDoList[id].visible;
+  } else if (
+    toDoList[id].visible === false &&
+    toDoList[id].completed === true
+  ) {
+    toDoList[id].visible = !toDoList[id].visible;
+  }
 }
 function hideAllCompleted() {
   const selected = selectAllCompleted();
