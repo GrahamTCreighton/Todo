@@ -96,9 +96,11 @@ class App {
     let allVisible = api.checkAllVisible();
     hideAllCompleted.onclick = () => {
       if ((anyVisible = true)) {
+        //checkAnyVisible needs implementing in api.
         api.showAllHidden();
         this.render();
       } else if ((allVisible = true)) {
+        //checkAllVisible needs implementing in api.
         api.hideAllCompleted();
         this.render();
       }
