@@ -45,24 +45,22 @@ function selectAllCompleted() {
   return objectFiltered;
 }
 function hide(id) {
-  if (toDoList[id].visible === true && toDoList[id].completed === true) {
-    toDoList[id].visible = !toDoList[id].completed;
-  } else if (
-    toDoList[id].visible === false &&
-    toDoList[id].completed === false
-  ) {
-    toDoList[id].visible = !toDoList[id].visible;
-  } else if (
-    toDoList[id].visible === false &&
-    toDoList[id].completed === true
-  ) {
-    toDoList[id].visible = !toDoList[id].visible;
-  }
+  toDoList[id].visible = !toDoList[id].completed;
 }
 function hideAllCompleted() {
   const selected = selectAllCompleted();
   let keys = Object.keys(selected);
   keys.forEach((key) => hide(key));
+}
+function selectAllVisible() {
+  let entries = Object.entries(toDoList);
+  let filterVisible = entries.filter((entry) => entry[1].visible === true);
+  let objectVisible = {};
+  filterVisible.forEach((entry) => {
+    objectvisible[entry[0]] = entry[1];
+  });
+  return objectVisible;
+  /* Selecting all visible elements that are true. Need to convert this to check if every element is visible with every(), and also check if any element is visible with some() */
 }
 
 function completedTasksCounter() {
@@ -87,4 +85,5 @@ export default {
   hideAllCompleted,
   completedTasksCounter,
   toggleInput,
+  selectAllVisible,
 };

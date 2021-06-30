@@ -91,11 +91,17 @@ class App {
   }
   renderHideAllCompletedOptionsComponent() {
     let hideAllCompleted = document.createElement("button");
-    hideAllCompleted.innerHTML = "hide completed";
+    hideAllCompleted.innerHTML = "hide/show completed";
+    let anyVisible = api.checkAnyVisible();
+    let allVisible = api.checkAllVisible();
     hideAllCompleted.onclick = () => {
-      hideAllCompleted.innerHTML = "show completed";
-      api.hideAllCompleted();
-      this.render();
+      if ((anyVisible = true)) {
+        api.showAllHidden();
+        this.render();
+      } else if ((allVisible = true)) {
+        api.hideAllCompleted();
+        this.render();
+      }
     };
     document.body.appendChild(hideAllCompleted);
   }
